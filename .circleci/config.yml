@@ -5,18 +5,18 @@ jobs:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - run: echo Hello dear $user_name
+      - run: echo Hello my dear $user_name
 
   print_user:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - run: echo How are you today?
+      - run: echo Good Morning
 
 workflows:
   say-hello-workflow:
     jobs:
-      - print_hello
-      - print_user:
+      - print_user
+      - print_hello:
           requires:
-            - print_hello
+            - print_user
