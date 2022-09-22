@@ -3,13 +3,13 @@ version: 2.1 # Use version 2.1 to enable orb usage.
 jobs:
   print_hello:
     docker:
-      - image: circleci/node: 13.8.0
+      - image: circleci/node:13.8.0
     steps:
       - run: echo Hello, Friend
 
   print_user:
     docker:
-      - image: circleci/node: 13.8.0
+      - image: circleci/node:13.8.0
     steps:
       - run: echo How are you today?
 
