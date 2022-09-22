@@ -5,7 +5,7 @@ jobs:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - run: echo Hello, My Friend | $user_name
+      - run: echo Hello, My Friend | $CIRCLE_PROJECT_USERNAME
 
   print_user:
     docker:
