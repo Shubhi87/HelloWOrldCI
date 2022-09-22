@@ -1,0 +1,36 @@
+version: 2.1 # Use version 2.1 to enable orb usage.
+
+orbs:
+  win: circleci/windows@4.1.1 # The Windows orb give you everything you need to start using the Windows executor.
+
+
+jobs:
+  print_hello:
+    executor:
+      name: win/default # executor type
+      size: "medium" # resource class, can be "medium", "large", "xlarge", "2xlarge", defaults to "medium" if not specified
+
+    steps:
+      # Commands are run in a Windows virtual machine environment
+      - checkout
+      - run: Write-Host 'Hello, Windows'
+
+  print_user:
+    executor:
+      name: win/default # executor type
+      size: "medium" # resource class, can be "medium", "large", "xlarge", "2xlarge", defaults to "medium" if not specified
+
+    steps:
+      # Commands are run in a Windows virtual machine environment
+      - checkout
+      - run: Write-Host 'Welcome Guest'
+
+workflows:
+  # Name the workflow "say-hello-workflow:"
+  say-hello-workflow:
+    # Run the welcome/run job in its own container
+    jobs:
+      - print_hello
+      - print_user:
+          requires:
+            - print_hello
