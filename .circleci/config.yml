@@ -15,9 +15,10 @@ jobs:
 
   get_hello_user:
     docker:
-      - image: circleci/node:13.8.0
+      - image: circleci/node:13.8.0    
+    working_directory: /tmp
     steps:
-      - run: echo Good Morning >>/tmp/ss_workspace/ssfile1.txt
+      - run: echo Good Morning >>ss_workspace/ssfile1.txt
       - run: cat /tmp/ss_workspace/ssfile1.txt
       - attach_workspace:
           at: /tmp/ss_workspace
