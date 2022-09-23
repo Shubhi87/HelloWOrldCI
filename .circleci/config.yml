@@ -20,7 +20,7 @@ jobs:
       - attach_workspace:
           at: /tmp/ss_workspace
       - run: pwd
-      - run: echo Good Morning >>ss_workspace/ssfile1.txt
+      - run: echo Good Morning >>/tmp/ss_workspace/ssfile1.txt
       - run: cat /tmp/ss_workspace/ssfile1.txt
       
 
