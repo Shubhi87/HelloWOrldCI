@@ -1,22 +1,29 @@
 version: 2.1 # Use version 2.1 to enable orb usage.
 
 jobs:
-  print_hello:
+  print_hello_user:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - run: echo Hello my dear $CIRCLE_PROJECT_USERNAME
+      - run: echo Hello my dear $CIRCLE_PROJECT_USERNAME > ssfile1.txt
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - ssfile1.txt
 
-  print_user:
+  get_hello_user:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - run: echo Good Morning
+      - run: echo Good Morning 
+             cat ssfile1.txt
+      - attach_workspace:
+          at: /tmp/workspace
 
 workflows:
   say-hello-workflow:
     jobs:
-      - print_user
-      - print_hello:
+      - print_hello_user
+      - get_hello_user:
           requires:
-            - print_user
+            - print_hello_user
