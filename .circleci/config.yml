@@ -4,10 +4,12 @@ jobs:
   print_hello_user:
     docker:
       - image: circleci/node:13.8.0
+    working_directory: /tmp
     steps:
-      - run: echo Hello my dear $CIRCLE_PROJECT_USERNAME > ssfile1.txt
+      - run: mkdir -p ss_workspace 
+      - run: echo Hello my dear $CIRCLE_PROJECT_USERNAME ! > ss_workspace/ssfile1.txt
       - persist_to_workspace:
-          root: /tmp/workspace
+          root: workspace
           paths:
             - ssfile1.txt
 
@@ -15,8 +17,8 @@ jobs:
     docker:
       - image: circleci/node:13.8.0
     steps:
-      - run: echo Good Morning 
-             cat ssfile1.txt
+      - run: echo Good Morning >>ssfile1.txt
+      - run: cat ssfile1.txt
       - attach_workspace:
           at: /tmp/workspace
 
