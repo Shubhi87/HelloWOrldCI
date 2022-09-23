@@ -15,8 +15,7 @@ jobs:
 
   get_hello_user:
     docker:
-      - image: circleci/node:13.8.0    
-    working_directory: /tmp
+      - image: circleci/node:13.8.0
     steps:
       - attach_workspace:
           at: /tmp/ss_workspace
