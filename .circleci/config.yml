@@ -7,11 +7,13 @@ jobs:
     working_directory: /tmp
     steps:
       - run: mkdir -p ss_workspace 
+      - run: mkdir -p cachefolder 
       - run: echo Hello my dear $CIRCLE_PROJECT_USERNAME ! > ss_workspace/ssfile1.txt
+      - run: echo Hello my dear $CIRCLE_PROJECT_USERNAME ! > cachefolder/test.txt
       - save_cache:
-          key: v1-my-project-{{ checksum "ssfile1.txt" }}
+          key: v1-my-project-{{ checksum "test.txt" }}
           paths:
-            - /tmp/ssfile1.txt
+            - /tmp/cachefolder/test.txt
       - persist_to_workspace:
           root: ss_workspace
           paths:
@@ -24,9 +26,9 @@ jobs:
       - attach_workspace:
           at: /tmp/ss_workspace
       - restore_cache:
-          key: v1-my-project-{{ checksum "ssfile1.txt" }}
+          key: v1-my-project-{{ checksum "test.txt" }}
           paths:
-            - /tmp/ssfile1.txt
+            - /tmp/cachefolder/test.txt
       - run: pwd
       - run: echo Good Morning >>/tmp/ss_workspace/ssfile1.txt
       - run: cat /tmp/ss_workspace/ssfile1.txt
