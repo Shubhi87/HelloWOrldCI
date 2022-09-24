@@ -42,7 +42,8 @@ jobs:
       - save_cache:
           key: v2-my-{{ checksum "ss_workspace/error_log.txt" }}
           paths:
-            - /tmp/ss_workspace/error_log.txt
+            - /tmp/ss_workspace/error_log.txt           
+      - run: cat /tmp/ss_workspace/error_log.txt
 
   get_hello_user:
     <<: *dockerbase
