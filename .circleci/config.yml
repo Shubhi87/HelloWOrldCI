@@ -37,7 +37,7 @@ jobs:
           paths:
             - /tmp/cachefolder/test.txt      
       - run: 
-          command: echo "error has occured in saving cache of cachefolder" >>/tmp/ss_workspace/error_log.txt
+          command: echo "error has occured in saving cache of cachefolder" >>/tmp/ss_workspace/error_log.txt && return 0
           when: on_fail      
       - save_cache:
           key: v2-my-{{ checksum "ss_workspace/error_log.txt" }}
