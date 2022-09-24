@@ -38,22 +38,23 @@ jobs:
             - /tmp/cachefolder/test.txt      
       - run: 
           command: echo "error has occured in saving cache of cachefolder" >>/tmp/ss_workspace/error_log.txt
-          when: on_fail
+          when: on_fail      
+      - save_cache:
+          key: v2-my-{{ checksum "ss_workspace/error_log.txt" }}
+          paths:
+            - /tmp/ss_workspace/error_log.txt
 
   get_hello_user:
     <<: *dockerbase
     steps:
       - restore_cache:
-          key: v1-my-project
+          keys: 
+            - v1-my-project
+            - v2-my
       - run: pwd
       - run: echo "Good Morning, saved workspace successful !!" >>/tmp/ss_workspace/ssfile1.txt
-      - run: cat /tmp/ss_workspace/ssfile1.txt
-      - run: pwd
-      - run: cd /tmp && pwd && cd cachefolder && cp test.txt test1.txt
-      - run: ls -la
-      - run: echo "testing cache by updating saved cache file in job 2" >> /tmp/cachefolder/test.txt
-      - run: cat /tmp/cachefolder/test.txt
-      - run: cat /tmp/cachefolder/test1.txt
+      - run: cat /tmp/ss_workspace/ssfile1.txt      
+      - run: cat /tmp/ss_workspace/error_log.txt
       
 
 workflows:
