@@ -1,0 +1,47 @@
+version: 2.1 # Use version 2.1 to enable orb usage.
+
+jobs:
+  print_hello_user:
+    docker:
+      - image: circleci/node:13.8.0
+    working_directory: /tmp
+    steps:
+      - run: mkdir -p ss_workspace 
+      - run: mkdir -p cachefolder 
+      - run: echo Hello my dear $CIRCLE_PROJECT_USERNAME ! > ss_workspace/ssfile1.txt
+      - run: echo Hello my dear $CIRCLE_PROJECT_USERNAME ! > cachefolder/test.txt
+      - save_cache:
+          key: v1-my-project-{{ checksum "cachefolder/test.txt" }}
+          paths:
+            - /tmp/cachefolder/test.txt
+      - persist_to_workspace:
+          root: ss_workspace
+          paths:
+            - ssfile1.txt
+
+  get_hello_user:
+    docker:
+      - image: circleci/node:13.8.0
+    steps:
+      - attach_workspace:
+          at: /tmp/ss_workspace
+      - restore_cache:
+          key: v1-my-project
+      - run: pwd
+      - run: echo Good Morning >>/tmp/ss_workspace/ssfile1.txt
+      - run: cat /tmp/ss_workspace/ssfile1.txt
+      - run: pwd
+      - run: cd /tmp && pwd && cd cachefolder && cp test.txt test1.txt
+      - run: ls -la
+      - run: echo "testing cache" >> /tmp/cachefolder/test.txt
+      - run: cat /tmp/cachefolder/test.txt
+      - run: cat /tmp/cachefolder/test1.txt
+      
+
+workflows:
+  say-hello-workflow:
+    jobs:
+      - print_hello_user
+      - get_hello_user:
+          requires:
+            - print_hello_user
