@@ -32,7 +32,7 @@ jobs:
       - run: pwd
       - run: echo Good Morning >>/tmp/ss_workspace/ssfile1.txt
       - run: cat /tmp/ss_workspace/ssfile1.txt
-      - run: cd../../../
+      - run: cd /
       - run: pwd
       - run: ls -la
       - run: cd tmp
