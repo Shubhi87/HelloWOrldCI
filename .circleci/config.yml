@@ -24,10 +24,10 @@ jobs:
       - run: mkdir -p ss_workspace 
       - run: mkdir -p cachefolder 
       - sayhello: 
-          hello_to: "$CIRCLE_PROJECT_USERNAME ! calling to sayhello test 1, saved by workspace"
+          hello_to: "$CIRCLE_WORKFLOW_ID ! calling to sayhello test 1, saved by workspace"
           file_name: "/tmp/ss_workspace/ssfile1.txt"
       - sayhello: 
-          hello_to: "$CIRCLE_PROJECT_USERNAME, call success to say hello, saved in cache"
+          hello_to: "$CIRCLE_WORKFLOW_ID, call success to say hello, saved in cache"
           file_name: "/tmp/cachefolder/test.txt"
       - save_cache:
           key: v1-my-project-{{ checksum "cachefolder/test.txt" }}
