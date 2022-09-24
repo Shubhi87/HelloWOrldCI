@@ -1,15 +1,34 @@
 version: 2.1 # Use version 2.1 to enable orb usage.
+defaults: &dockerbase
+  docker:
+    - image: circleci/node:13.8.0
+  working_directory: /tmp
+
+commands: 
+  sayhello:
+    description: "Simple command to say hello"
+    parameters: 
+      hello_to: 
+        type: string
+        default: "Hello World"
+      file_name:
+        type: string
+        default: "ss_workspace/test.txt"
+    steps:
+      - run: echo << parameters.hello_to >> >> << parameters.file_name >>
 
 jobs:
   print_hello_user:
-    docker:
-      - image: circleci/node:13.8.0
-    working_directory: /tmp
+    <<: *dockerbase
     steps:
       - run: mkdir -p ss_workspace 
       - run: mkdir -p cachefolder 
-      - run: echo Hello my dear $CIRCLE_PROJECT_USERNAME ! > ss_workspace/ssfile1.txt
-      - run: echo Hello my dear $CIRCLE_PROJECT_USERNAME ! > cachefolder/test.txt
+      - sayhello: 
+          hello_to: "Hello my dear $CIRCLE_PROJECT_USERNAME !"
+          file_name: "/tmp/ss_workspace/ssfile1.txt"
+      - sayhello: 
+          hello_to: "Hello my dear $CIRCLE_PROJECT_USERNAME !"
+          file_name: "/tmp/cachefolder/test.txt"
       - save_cache:
           key: v1-my-project-{{ checksum "cachefolder/test.txt" }}
           paths:
@@ -20,8 +39,7 @@ jobs:
             - ssfile1.txt
 
   get_hello_user:
-    docker:
-      - image: circleci/node:13.8.0
+    <<: *dockerbase
     steps:
       - attach_workspace:
           at: /tmp/ss_workspace
