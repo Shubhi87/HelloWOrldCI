@@ -11,7 +11,7 @@ jobs:
       - run: echo Hello my dear $CIRCLE_PROJECT_USERNAME ! > ss_workspace/ssfile1.txt
       - run: echo Hello my dear $CIRCLE_PROJECT_USERNAME ! > cachefolder/test.txt
       - save_cache:
-          key: v1-my-project-{{ checksum "test.txt" }}
+          key: v1-my-project-{{ checksum "cachefolder/test.txt" }}
           paths:
             - /tmp/cachefolder/test.txt
       - persist_to_workspace:
