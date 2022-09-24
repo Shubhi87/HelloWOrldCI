@@ -31,7 +31,7 @@ jobs:
       - run: echo Good Morning >>/tmp/ss_workspace/ssfile1.txt
       - run: cat /tmp/ss_workspace/ssfile1.txt
       - run: pwd
-      - run: sudo cd /|pwd |cd tmp|cd cachefolder|cp test.txt test1.txt
+      - run: cd |pwd |cd tmp|cd cachefolder|cp test.txt test1.txt
       - run: ls -la
       - run: echo "testing cache" >> /tmp/cachefolder/test.txt
       - run: cat /tmp/cachefolder/test.txt
