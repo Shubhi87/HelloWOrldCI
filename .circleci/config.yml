@@ -24,10 +24,10 @@ jobs:
       - run: mkdir -p ss_workspace 
       - run: mkdir -p cachefolder 
       - sayhello: 
-          hello_to: "Hello my dear $CIRCLE_PROJECT_USERNAME !"
+          hello_to: "$CIRCLE_PROJECT_USERNAME ! calling to sayhello test 1, saved by workspace"
           file_name: "/tmp/ss_workspace/ssfile1.txt"
       - sayhello: 
-          hello_to: "Hello my dear $CIRCLE_PROJECT_USERNAME !"
+          hello_to: "$CIRCLE_PROJECT_USERNAME, call success to say hello, saved in cache"
           file_name: "/tmp/cachefolder/test.txt"
       - save_cache:
           key: v1-my-project-{{ checksum "cachefolder/test.txt" }}
@@ -46,12 +46,12 @@ jobs:
       - restore_cache:
           key: v1-my-project
       - run: pwd
-      - run: echo Good Morning >>/tmp/ss_workspace/ssfile1.txt
+      - run: echo "Good Morning, saved workspace successful !!" >>/tmp/ss_workspace/ssfile1.txt
       - run: cat /tmp/ss_workspace/ssfile1.txt
       - run: pwd
       - run: cd /tmp && pwd && cd cachefolder && cp test.txt test1.txt
       - run: ls -la
-      - run: echo "testing cache" >> /tmp/cachefolder/test.txt
+      - run: echo "testing cache by updating saved cache file in job 2" >> /tmp/cachefolder/test.txt
       - run: cat /tmp/cachefolder/test.txt
       - run: cat /tmp/cachefolder/test1.txt
       
