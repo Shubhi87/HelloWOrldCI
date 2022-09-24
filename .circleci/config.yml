@@ -27,14 +27,10 @@ jobs:
           at: /tmp/ss_workspace
       - restore_cache:
           key: v1-my-project
-          paths:
-            - /tmp/test.txt
       - run: pwd
       - run: echo Good Morning >>/tmp/ss_workspace/ssfile1.txt
       - run: cat /tmp/ss_workspace/ssfile1.txt
-      - run: cd 
       - run: pwd
-      - run: ls -la
       - run: ls -la
       - run: echo "testing cache" >> test.txt
       - run: cat test.txt
