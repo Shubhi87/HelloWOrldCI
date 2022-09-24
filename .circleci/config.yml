@@ -26,9 +26,9 @@ jobs:
       - attach_workspace:
           at: /tmp/ss_workspace
       - restore_cache:
-          key: v1-my-project-{{ checksum "/tmp/cachefolder/test.txt" }}
+          key: v1-my-project-{{ checksum "test.txt" }}
           paths:
-            - /tmp/cachefolder/test.txt
+            - /tmp/test.txt
       - run: pwd
       - run: echo Good Morning >>/tmp/ss_workspace/ssfile1.txt
       - run: cat /tmp/ss_workspace/ssfile1.txt
