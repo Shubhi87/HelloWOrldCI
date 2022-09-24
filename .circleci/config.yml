@@ -43,7 +43,10 @@ jobs:
           key: v2-my-{{ checksum "ss_workspace/error_log.txt" }}
           paths:
             - /tmp/ss_workspace/error_log.txt           
-      - run: cat /tmp/ss_workspace/error_log.txt
+      - run: 
+          command: cat /tmp/ss_workspace/error_log.txt
+          when: on_fail 
+       
 
   get_hello_user:
     <<: *dockerbase
