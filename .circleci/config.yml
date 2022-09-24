@@ -30,11 +30,10 @@ jobs:
       - run: pwd
       - run: echo Good Morning >>/tmp/ss_workspace/ssfile1.txt
       - run: cat /tmp/ss_workspace/ssfile1.txt
-      - run: find / -type f -name test.txt
       - run: pwd
       - run: ls -la
-      - run: echo "testing cache" >> test.txt
-      - run: cat test.txt
+      - run: echo "testing cache" >> /tmp/cachefolder/test.txt
+      - run: cat /tmp/cachefolder/test.txt
       
 
 workflows:
