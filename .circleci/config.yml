@@ -30,7 +30,7 @@ jobs:
           hello_to: "$CIRCLE_WORKFLOW_ID, call success to say hello, saved in cache"
           file_name: "/tmp/cachefolder/test.txt"
       - run: 
-          command: echo "error has occured in creating test file at cachefolder" >>/tmp/ss_workspace/error_log.txt
+          command: echo "error has occured in creating test file at cachefolder" >>/tmp/ss_workspace/error_log.txt && return 0
           when: on_fail
       - save_cache:
           key: v1-my-project-{{ checksum "cachefolder/test.txt" }}
